@@ -1,2 +1,0 @@
-/usr/bin/ar qc libcontinuous_integration.a  CMakeFiles/continuous_integration.dir/library.c.o
-/usr/bin/ranlib libcontinuous_integration.a
