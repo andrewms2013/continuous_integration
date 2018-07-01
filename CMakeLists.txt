@@ -29,7 +29,7 @@ project(test.out)
 
 add_executable(${PROJECT_NAME} tests/main.c ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME} check subunit rt m pthread)
+target_link_libraries(${PROJECT_NAME} check rt m pthread)
 
 target_link_libraries(test.out m)
 
