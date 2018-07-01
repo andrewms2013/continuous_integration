@@ -13,7 +13,7 @@ install:
   - pushd check-0.11.0 && ./configure --prefix=/usr && make && sudo make install && popd
 
 before_script:  
-  - cmake .
+  - cmake ..
 
 script: 
   - make 
