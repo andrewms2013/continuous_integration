@@ -6,7 +6,7 @@ os:
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install lcov
-  - sudo apt-get install lsubunit
+  - sudo apt install libcppunit-subunit-dev
 
 install:
   - wget https://github.com/libcheck/check/releases/download/0.11.0/check-0.11.0.tar.gz
