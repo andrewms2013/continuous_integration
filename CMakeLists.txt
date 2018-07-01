@@ -25,33 +25,25 @@ install(
         DESTINATION /usr/local/lib
 )
 
-#
-# Test project
-#
-project(a.out)
+project(test.out)
 
-add_executable(${CMAKE_PROJECT_NAME} "tests/main.c" ${LIB_SOURCES})
+add_executable(${PROJECT_NAME} tests/main.c ${SOURCES})
 
-set_property(TARGET ${CMAKE_PROJECT_NAME} PROPERTY C_STANDARD 99)
+target_link_libraries(${PROJECT_NAME} check subunit rt m pthread)
 
-target_link_libraries(${CMAKE_PROJECT_NAME} libcheck.so)
+target_link_libraries(test.out m)
+
+SET(CMAKE_C_FLAGS "-std=c11 -Wall -pedantic-errors -Werror -Wno-unused")
 
 #
 # Create make test
 #
-
 enable_testing()
-
 add_test(unit-tests ${CMAKE_PROJECT_NAME})
 
 ## Coverage
-
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/scripts/cmake)
-
 include(CodeCoverage)
-
 setup_target_for_coverage(${CMAKE_PROJECT_NAME}_coverage ${CMAKE_PROJECT_NAME} coverage)
-
 SET(CMAKE_CXX_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
-
 SET(CMAKE_C_FLAGS "-std=c99 -g -O0 -fprofile-arcs -ftest-coverage")
