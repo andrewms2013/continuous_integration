@@ -1,3 +1,8 @@
+sudo: required
+language: c
+os:
+  - linux
+
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install lcov
@@ -6,3 +11,14 @@ install:
   - wget https://github.com/libcheck/check/releases/download/0.11.0/check-0.11.0.tar.gz
   - tar -xzvf check-0.11.0.tar.gz
   - pushd check-0.11.0 && ./configure --prefix=/usr && make && sudo make install && popd
+
+before_script:  
+  - cmake .
+
+script: 
+  - make 
+  - make test
+  - lcov --directory . --capture --output-file coverage.info
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
