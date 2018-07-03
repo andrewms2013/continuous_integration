@@ -24,14 +24,17 @@ END_TEST
 
 START_TEST (teacher_with_students)
     {
-        List * students = students_from_csv("1,3,Andrew,2.34\n2,2,Vasya,4.22");
-        ck_assert_int_eq(List_count(students), 2);
+        List * students = students_from_csv("1,3,Andrew,2.34\n2,2,Vasya,4.22\n3,2,Petya,6.22\n4,1,Bogdan,1.22");
+        ck_assert_int_eq(List_count(students), 4);
         Teacher * teacher = Teacher_new();
         add_students_to_teacher(teacher, students);
         List * studs = teacher->students;
         ck_assert(studs);
         ck_assert_str_eq(((Student*)List_at(studs, 1))->name, "Vasya");
         ck_assert_int_ne(((Student*)List_at(studs, 1))->id, 3);
+        List * topStudents = get_top_students(teacher, 3);
+        ck_assert_str_eq(((Student*)List_at(topStudents, 0))->name, "Petya");
+        ck_assert_str_eq(((Student*)List_at(topStudents, 1))->name, "Vasya");
         Teacher_free(teacher);
     }
 END_TEST
